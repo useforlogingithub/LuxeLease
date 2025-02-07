@@ -129,8 +129,13 @@ export const addFavoriteProperty = async (
       include: { favorites: true },
     });
 
+    if (!tenant) {
+      res.status(404).json({ message: "Tenant not found" });
+      return;
+    }
+
     const propertyIdNumber = Number(propertyId);
-    const existingFavorites = tenant?.favorites || [];
+    const existingFavorites = tenant.favorites || [];
 
     if (!existingFavorites.some((fav) => fav.id === propertyIdNumber)) {
       const updatedTenant = await prisma.tenant.update({
@@ -146,10 +151,10 @@ export const addFavoriteProperty = async (
     } else {
       res.status(409).json({ message: "Property already added as favorite" });
     }
-  } catch (err: any) {
+  } catch (error: any) {
     res
       .status(500)
-      .json({ message: `Error adding favorite property: ${err.message}` });
+      .json({ message: `Error adding favorite property: ${error.message}` });
   }
 };
 
