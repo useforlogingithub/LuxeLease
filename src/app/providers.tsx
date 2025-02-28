@@ -9,3 +9,6 @@ const Providers = ({ children} : {children: React.ReactNode}) => {
         </StoreProvider>
     )
 }
+
+
+export default Providers;
