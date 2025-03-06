@@ -224,28 +224,21 @@ export const createProperty = async (
       })
     );
 
-    const geocodingUrl = `https://nominatim.openstreetmap.org/search?${new URLSearchParams(
-      {
-        street: address,
-        city,
-        country,
-        postalcode: postalCode,
-        format: "json",
-        limit: "1",
-      }
-    ).toString()}`;
-    const geocodingResponse = await axios.get(geocodingUrl, {
-      headers: {
-        "User-Agent": "RealEstateApp (justsomedummyemail@gmail.com",
-      },
-    });
-    const [longitude, latitude] =
-      geocodingResponse.data[0]?.lon && geocodingResponse.data[0]?.lat
-        ? [
-            parseFloat(geocodingResponse.data[0]?.lon),
-            parseFloat(geocodingResponse.data[0]?.lat),
-          ]
-        : [0, 0];
+
+      
+      const centerLongitude = -118.144516;
+      const centerLatitude = 34.147785;
+
+      
+      const range = 0.027;
+
+      
+      const longitude = centerLongitude + (Math.random() * 2 - 1) * range;
+      const latitude = centerLatitude + (Math.random() * 2 - 1) * range;
+
+      console.log(`Random Location: Longitude = ${longitude}, Latitude = ${latitude}`);
+
+
 
     // create location
     const [location] = await prisma.$queryRaw<Location[]>`
