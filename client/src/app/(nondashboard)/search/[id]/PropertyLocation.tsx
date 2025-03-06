@@ -36,7 +36,7 @@ const PropertyLocation = ({ propertyId }: PropertyDetailsProps) => {
 
     const markerElement = marker.getElement();
     const path = markerElement.querySelector("path[fill='#3FB1CE']");
-    if (path) path.setAttribute("fill", "#000000");
+    if (path) path.setAttribute("fill", "#FF0000");
 
     return () => map.remove();
   }, [property, isError, isLoading]);
